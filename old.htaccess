@@ -1,0 +1,21 @@
+RewriteEngine On
+
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Credentials true
+
+#Remove comments for the next two lines if your site require www
+#RewriteCond %{HTTPS} off
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#Remove comments for the next two lines if your site has ssl certificate
+#RewriteCond %{HTTP_HOST} !^www\.
+#RewriteRule .* http://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#add the base url this
+RewriteBase /
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule ^$ index.php [L,QSA]
+RewriteRule ^s/([^/]*)/$ set/$1.php [L,QSA]
+RewriteRule ^g/([^/]*)/$ get/$1.php [L,QSA]
